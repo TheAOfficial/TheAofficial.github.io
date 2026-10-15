@@ -327,8 +327,33 @@ function pzBuild(){ring.children.forEach(m=>{m.material.map&&m.material.map.disp
  const items=[...PHOTOS.map(u=>({url:u})),...mine],real=items.length,list=real?items:Array.from({length:8},(_,i)=>({ph:i})),n=list.length,R=Math.max(4,n*.5);
  list.forEach((it,i)=>{const mat=new T.MeshBasicMaterial({side:T.DoubleSide,color:0xffffff}),m=new T.Mesh(new T.PlaneGeometry(1,1),mat),a=i/n*Math.PI*2;m.scale.set(1.5,1,1);m.position.set(Math.sin(a)*R,0,Math.cos(a)*R);m.rotation.y=a+Math.PI;
   m.add(new T.LineSegments(new T.EdgesGeometry(m.geometry),new T.LineBasicMaterial({color:PINK})));
-  if(it.ph!=null){mat.map=pzTex(it.ph)}else{m.userData.url=it.url;mat.color.set(0x221030);new T.TextureLoader().load(it.url,t=>{mat.map=t;mat.color.set(0xffffff);mat.needsUpdate=true;m.scale.set(t.image.width/t.image.height,1,1)})}
-  ring.add(m)});
+  if(it.ph!=null){
+  mat.map=pzTex(it.ph);
+  m.scale.set(1.5,1,1);
+}else{
+  m.userData.url=it.url;
+  mat.color.set(0x221030);
+
+  new T.TextureLoader().load(it.url,t=>{
+    mat.map=t;
+    mat.color.set(0xffffff);
+    mat.needsUpdate=true;
+
+    const aspect=t.image.width/t.image.height;
+    const maxWidth=1.8;
+    const maxHeight=1.4;
+
+    let width=maxWidth;
+    let height=width/aspect;
+
+    if(height>maxHeight){
+      height=maxHeight;
+      width=height*aspect;
+    }
+
+    m.scale.set(width,height,1);
+  });
+}
  $('phNote').textContent=real?real+(real>1?' photos shown.':' photo shown.')+(mine.length?' Photos you add here are saved in this browser only.':''):'Showing placeholders. Add photos to see yours here.'}
 const idb=new Promise(res=>{try{const q=indexedDB.open('vk-photos',1);q.onupgradeneeded=()=>q.result.createObjectStore('p',{autoIncrement:true});q.onsuccess=()=>res(q.result);q.onerror=()=>res(null)}catch(_){res(null)}});
 const dbDo=(mode,fn)=>idb.then(d=>d?new Promise(res=>{try{const tx=d.transaction('p',mode),r=fn(tx.objectStore('p'));tx.oncomplete=()=>res(r&&r.result);tx.onerror=()=>res(null)}catch(_){res(null)}}):null);
