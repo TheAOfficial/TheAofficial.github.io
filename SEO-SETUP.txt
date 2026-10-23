@@ -1,0 +1,25 @@
+A | VEHAN — SEO setup
+=====================
+
+FILES
+- index.html: your existing portfolio with SEO metadata and structured data added.
+- robots.txt: allows search engines to crawl the public site and points to the sitemap.
+- sitemap.xml: lists the homepage.
+
+UPLOAD
+1. Download the ZIP and extract it.
+2. Replace your current index.html with this index.html in the ROOT of the GitHub repository for https://theaofficial.github.io/.
+3. Upload robots.txt and sitemap.xml into the SAME root folder as index.html.
+4. Ensure photo.jpg really exists in the published root and is publicly reachable at:
+   https://theaofficial.github.io/photo.jpg
+   If your real portrait has a different filename, update og:image, twitter:image, and the Person image URL in index.html.
+5. Keep the public profile name consistent across the site and your social profiles: "Vikas Kumar" and "A | VEHAN". Only list social profiles you control and that are public.
+6. Open Google Search Console, add/verify https://theaofficial.github.io/, inspect the homepage URL, request indexing, and submit:
+   https://theaofficial.github.io/sitemap.xml
+7. For Google Images: upload original photos with descriptive filenames (for example, vikas-kumar-a-vehan-portrait.jpg), use accurate descriptive alt text, and link to them from visible page content. Make sure the image files are not blocked or broken.
+
+IMPORTANT
+- SEO cannot guarantee first position, a Knowledge Panel, or any specific number of image results.
+- Structured data helps search engines interpret the page; it does not force a Knowledge Panel.
+- Keep all identity details accurate. Do not add fake awards, employers, follower counts, press coverage, or fake social profiles.
+- This sitemap currently lists the homepage only. Add more URLs if you publish separate public pages.
